@@ -141,7 +141,7 @@ export default function HeroSection() {
                   style={{ color: '#14213d' }}
                 >
                   <span style={{ color: '#a0b6cd' }}>GET</span>{' '}
-                  https://api.ryodev.my.id/api/qr?text=hello
+                  https://ryodev.my.id/api/qr?text=hello
                 </code>
               </div>
 
