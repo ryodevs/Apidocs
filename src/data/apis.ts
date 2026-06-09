@@ -44,10 +44,9 @@ export const endpoints: Endpoint[] = [
       'Send a text message to Google Gemini AI and receive a conversational response. Perfect for chatbots, Q&A systems, and content generation.',
     params: [
       { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI', placeholder: 'Explain quantum computing' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/gemini?text=Explain%20quantum%20computing&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/gemini?text=Explain%20quantum%20computing`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -66,10 +65,9 @@ export const endpoints: Endpoint[] = [
       'Send a text message to GPT-based AI models and receive a conversational response. Alternative model option with different capabilities.',
     params: [
       { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI', placeholder: 'Write a poem' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/gpt?text=Write%20a%20poem&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/gpt?text=Write%20a%20poem`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -90,10 +88,9 @@ export const endpoints: Endpoint[] = [
       'Generate a QR code image from any text or URL. Returns a direct link to the generated QR code image.',
     params: [
       { name: 'text', type: 'string', required: true, description: 'Text or URL to encode in the QR code', placeholder: 'https://ryodev.my.id' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/qr?text=https://ryodev.my.id&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/qr?text=https://ryodev.my.id`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -112,10 +109,9 @@ export const endpoints: Endpoint[] = [
       'Enhance image resolution and quality using AI. Pass an image URL and receive an enhanced version with improved clarity and detail.',
     params: [
       { name: 'url', type: 'string', required: true, description: 'URL of the image to enhance', placeholder: 'https://example.com/photo.jpg' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/remini?url=https://example.com/photo.jpg&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/remini?url=https://example.com/photo.jpg`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -134,10 +130,9 @@ export const endpoints: Endpoint[] = [
       'Generate a brat-style image with custom text. Returns a brat aesthetic image with your text overlaid — popular for memes and social media content.',
     params: [
       { name: 'text', type: 'string', required: true, description: 'Text to display on the brat image', placeholder: 'brat summer' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/brat?text=brat%20summer&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/brat?text=brat%20summer`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -158,10 +153,9 @@ export const endpoints: Endpoint[] = [
       'Search for anime characters and retrieve detailed information including name, description, anime appearances, and image.',
     params: [
       { name: 'q', type: 'string', required: true, description: 'Character name or search query', placeholder: 'Monkey D. Luffy' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/anime?q=Monkey%20D.%20Luffy&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/anime?q=Monkey%20D.%20Luffy`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
