@@ -400,12 +400,17 @@ export default function Docs() {
                                 <ImageIcon size={12} style={{ color: '#a0b6cd' }} />
                                 <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#a0b6cd' }}>Preview</span>
                               </div>
-                              <img
+                              <iframe
                                 src={execState.imageUrl}
-                                alt="Result preview"
-                                className="max-w-full rounded-md"
-                                style={{ maxHeight: 320, border: '1px solid #e0e0e0' }}
-                                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                                title="Result preview"
+                                style={{
+                                  width: '100%',
+                                  maxWidth: 320,
+                                  height: 320,
+                                  border: '1px solid #e0e0e0',
+                                  borderRadius: 8,
+                                  backgroundColor: '#fff',
+                                }}
                               />
                             </div>
                           )}
