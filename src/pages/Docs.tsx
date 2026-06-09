@@ -21,7 +21,7 @@ const categories = [...new Set(endpoints.map((e) => e.category))];
 type ExecState =
   | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'success'; data: object; imageUrl?: string }
+  | { status: 'success'; data: object; imageUrl?: string; imageType?: 'blob' | 'svg' }
   | { status: 'error'; message: string };
 
 export default function Docs() {
@@ -80,14 +80,27 @@ export default function Docs() {
       const res = await fetch(url);
       const contentType = res.headers.get('content-type') || '';
 
-      if (contentType.includes('svg') || contentType.includes('image')) {
+      if (contentType.includes('image/png') || contentType.includes('image/jpeg') || contentType.includes('image/webp')) {
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
+        setExecState({ status: 'success', data: mockData, imageUrl: blobUrl, imageType: 'blob' });
+        return;
+      }
+
+      if (contentType.includes('svg')) {
         const svgText = await res.text();
         const mockData = { status: 200, creator: 'RyodevAPI', result: url };
-        setExecState({ status: 'success', data: mockData, imageUrl: svgText });
+        setExecState({ status: 'success', data: mockData, imageUrl: svgText, imageType: 'svg' });
         return;
       }
 
       const data = await res.json();
+      // kalau result-nya URL gambar (QR dll)
+      if (activeEp.responseType === 'image' && data.result && typeof data.result === 'string') {
+        setExecState({ status: 'success', data, imageUrl: data.result, imageType: 'blob' });
+        return;
+      }
       setExecState({ status: 'success', data });
     } catch (err) {
       setExecState({
@@ -403,10 +416,10 @@ export default function Docs() {
                                 <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#a0b6cd' }}>Preview</span>
                               </div>
                               <div
-                                dangerouslySetInnerHTML={{ __html: execState.imageUrl }}
+                                dangerouslySetInnerHTML={{ __html: execState.imageUrl.replace(/<svg /, '<svg style="width:100%;height:auto;display:block;" ') }}
                                 style={{
                                   width: "100%",
-                                  maxWidth: 320,
+                                  
                                   border: "1px solid #e0e0e0",
                                   borderRadius: 8,
                                   backgroundColor: "#fff",
