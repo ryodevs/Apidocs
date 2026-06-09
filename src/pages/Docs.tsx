@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { endpoints } from '../data/apis';
 
-const BASE_URL = 'https://api.ryodev.my.id';
+const BASE_URL = 'https://ryodev.my.id';
 const categories = [...new Set(endpoints.map((e) => e.category))];
 
 type ExecState =
@@ -77,15 +77,16 @@ export default function Docs() {
     const url = `${BASE_URL}${activeEp.path}?${qs.toString()}`;
 
     try {
-      const res = await fetch(url);
-      const data = await res.json();
-
-      let imageUrl: string | undefined;
-      if (activeEp.responseType === 'image' && data.result && typeof data.result === 'string') {
-        imageUrl = data.result;
+      if (activeEp.responseType === 'image') {
+        // Langsung jadiin URL gambar, gausah fetch JSON
+        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
+        setExecState({ status: 'success', data: mockData, imageUrl: url });
+        return;
       }
 
-      setExecState({ status: 'success', data, imageUrl });
+      const res = await fetch(url);
+      const data = await res.json();
+      setExecState({ status: 'success', data });
     } catch (err) {
       setExecState({
         status: 'error',
