@@ -46,7 +46,7 @@ export const endpoints: Endpoint[] = [
       { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI', placeholder: 'Explain quantum computing' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/gemini?text=Explain%20quantum%20computing`,
+      request: `GET https://api.ryodev.my.id/api/gemini?text=Explain%20quantum%20computing`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -67,7 +67,7 @@ export const endpoints: Endpoint[] = [
       { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI', placeholder: 'Write a poem' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/gpt?text=Write%20a%20poem`,
+      request: `GET https://api.ryodev.my.id/api/gpt?text=Write%20a%20poem`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -90,7 +90,7 @@ export const endpoints: Endpoint[] = [
       { name: 'text', type: 'string', required: true, description: 'Text or URL to encode in the QR code', placeholder: 'https://ryodev.my.id' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/qr?text=https://ryodev.my.id`,
+      request: `GET https://api.ryodev.my.id/api/qr?text=https://ryodev.my.id`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -111,7 +111,7 @@ export const endpoints: Endpoint[] = [
       { name: 'url', type: 'string', required: true, description: 'URL of the image to enhance', placeholder: 'https://example.com/photo.jpg' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/remini?url=https://example.com/photo.jpg`,
+      request: `GET https://api.ryodev.my.id/api/remini?url=https://example.com/photo.jpg`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -132,7 +132,7 @@ export const endpoints: Endpoint[] = [
       { name: 'text', type: 'string', required: true, description: 'Text to display on the brat image', placeholder: 'brat summer' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/brat?text=brat%20summer`,
+      request: `GET https://api.ryodev.my.id/api/brat?text=brat%20summer`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -155,7 +155,7 @@ export const endpoints: Endpoint[] = [
       { name: 'q', type: 'string', required: true, description: 'Character name or search query', placeholder: 'Monkey D. Luffy' },
     ],
     example: {
-      request: `GET https://ryodev.my.id/api/anime?q=Monkey%20D.%20Luffy`,
+      request: `GET https://api.ryodev.my.id/api/anime?q=Monkey%20D.%20Luffy`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
