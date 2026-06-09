@@ -5,11 +5,9 @@
  *  Cara nambahin endpoint baru:
  *  1. Tambah object baru ke array `endpoints` di bawah
  *  2. Isi semua field (id, method, path, title, category, dst.)
- *  3. Simpan file → langsung ke-render di halaman Docs
- *
- *  Cara nambahin kategori baru:
- *  - Isi field `category` dengan nama kategori baru
- *  - Otomatis muncul di sidebar dan halaman docs
+ *  3. responseType: 'text' untuk teks biasa, 'image' untuk endpoint
+ *     yang result-nya URL gambar (auto tampil preview pas di-execute)
+ *  4. Simpan file → langsung ke-render di halaman Docs
  * ============================================================
  */
 
@@ -18,6 +16,7 @@ export interface EndpointParam {
   type: string;
   required: boolean;
   description: string;
+  placeholder?: string;
 }
 
 export interface Endpoint {
@@ -27,6 +26,7 @@ export interface Endpoint {
   title: string;
   category: string;
   description: string;
+  responseType: 'text' | 'image';
   params: EndpointParam[];
   example: { request: string; response: object };
 }
@@ -39,18 +39,19 @@ export const endpoints: Endpoint[] = [
     path: '/api/gemini',
     title: 'AI Chat (Gemini)',
     category: 'AI Assistant',
+    responseType: 'text',
     description:
       'Send a text message to Google Gemini AI and receive a conversational response. Perfect for chatbots, Q&A systems, and content generation.',
     params: [
-      { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key' },
+      { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI', placeholder: 'Explain quantum computing' },
+      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://api.ryodev.my.id/api/gemini?text=Explain%20quantum%20computing&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/gemini?text=Explain%20quantum%20computing&apikey=YOUR_API_KEY`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
-        result: 'Quantum computing is a type of computation that harnesses the principles of quantum mechanics to process information...',
+        result: 'Quantum computing is a type of computation that harnesses the principles of quantum mechanics...',
       },
     },
   },
@@ -60,14 +61,15 @@ export const endpoints: Endpoint[] = [
     path: '/api/gpt',
     title: 'AI Chat (GPT)',
     category: 'AI Assistant',
+    responseType: 'text',
     description:
       'Send a text message to GPT-based AI models and receive a conversational response. Alternative model option with different capabilities.',
     params: [
-      { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key' },
+      { name: 'text', type: 'string', required: true, description: 'The message or question to send to the AI', placeholder: 'Write a poem' },
+      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://api.ryodev.my.id/api/gpt?text=Write%20a%20poem&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/gpt?text=Write%20a%20poem&apikey=YOUR_API_KEY`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -83,14 +85,15 @@ export const endpoints: Endpoint[] = [
     path: '/api/qr',
     title: 'QR Code Generator',
     category: 'Image Tools',
+    responseType: 'image',
     description:
       'Generate a QR code image from any text or URL. Returns a direct link to the generated QR code image.',
     params: [
-      { name: 'text', type: 'string', required: true, description: 'Text or URL to encode in the QR code' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key' },
+      { name: 'text', type: 'string', required: true, description: 'Text or URL to encode in the QR code', placeholder: 'https://ryodev.my.id' },
+      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://api.ryodev.my.id/api/qr?text=https://ryodev.my.id&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/qr?text=https://ryodev.my.id&apikey=YOUR_API_KEY`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -104,18 +107,41 @@ export const endpoints: Endpoint[] = [
     path: '/api/remini',
     title: 'Image Enhancer',
     category: 'Image Tools',
+    responseType: 'image',
     description:
       'Enhance image resolution and quality using AI. Pass an image URL and receive an enhanced version with improved clarity and detail.',
     params: [
-      { name: 'url', type: 'string', required: true, description: 'URL of the image to enhance' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key' },
+      { name: 'url', type: 'string', required: true, description: 'URL of the image to enhance', placeholder: 'https://example.com/photo.jpg' },
+      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://api.ryodev.my.id/api/remini?url=https://example.com/photo.jpg&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/remini?url=https://example.com/photo.jpg&apikey=YOUR_API_KEY`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
         result: 'https://cdn.ryodev.my.id/enhanced/photo_hd.png',
+      },
+    },
+  },
+  {
+    id: 'brat',
+    method: 'GET',
+    path: '/api/brat',
+    title: 'Brat Maker',
+    category: 'Image Tools',
+    responseType: 'image',
+    description:
+      'Generate a brat-style image with custom text. Returns a brat aesthetic image with your text overlaid — popular for memes and social media content.',
+    params: [
+      { name: 'text', type: 'string', required: true, description: 'Text to display on the brat image', placeholder: 'brat summer' },
+      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
+    ],
+    example: {
+      request: `GET https://ryodev.my.id/api/brat?text=brat%20summer&apikey=YOUR_API_KEY`,
+      response: {
+        status: 200,
+        creator: 'RyodevAPI',
+        result: 'https://cdn.ryodev.my.id/brat/brat_summer.png',
       },
     },
   },
@@ -127,14 +153,15 @@ export const endpoints: Endpoint[] = [
     path: '/api/anime',
     title: 'Anime Search',
     category: 'Anime Database',
+    responseType: 'text',
     description:
       'Search for anime characters and retrieve detailed information including name, description, anime appearances, and image.',
     params: [
-      { name: 'q', type: 'string', required: true, description: 'Character name or search query' },
-      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key' },
+      { name: 'q', type: 'string', required: true, description: 'Character name or search query', placeholder: 'Monkey D. Luffy' },
+      { name: 'apikey', type: 'string', required: true, description: 'Your RyodevAPI API key', placeholder: 'YOUR_API_KEY' },
     ],
     example: {
-      request: `GET https://api.ryodev.my.id/api/anime?q=Monkey%20D.%20Luffy&apikey=YOUR_API_KEY`,
+      request: `GET https://ryodev.my.id/api/anime?q=Monkey%20D.%20Luffy&apikey=YOUR_API_KEY`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
@@ -148,20 +175,21 @@ export const endpoints: Endpoint[] = [
     },
   },
 
-  // ── Contoh: cara nambahin endpoint baru ──────────────────
+  // ── Cara nambahin endpoint baru ───────────────────────────
   // {
   //   id: 'tts',
   //   method: 'GET',
   //   path: '/api/tts',
   //   title: 'Text to Speech',
-  //   category: 'Audio Tools',   // <-- kategori baru, auto muncul di sidebar
+  //   category: 'Audio Tools',
+  //   responseType: 'text',   // ganti 'image' kalau result-nya URL gambar
   //   description: 'Convert text to speech audio file.',
   //   params: [
-  //     { name: 'text', type: 'string', required: true, description: 'Text to convert' },
-  //     { name: 'apikey', type: 'string', required: true, description: 'Your API key' },
+  //     { name: 'text', type: 'string', required: true, description: 'Text to convert', placeholder: 'Hello world' },
+  //     { name: 'apikey', type: 'string', required: true, description: 'Your API key', placeholder: 'YOUR_API_KEY' },
   //   ],
   //   example: {
-  //     request: `GET https://api.ryodev.my.id/api/tts?text=hello&apikey=YOUR_API_KEY`,
+  //     request: `GET https://ryodev.my.id/api/tts?text=hello&apikey=YOUR_API_KEY`,
   //     response: { status: 200, creator: 'RyodevAPI', result: 'https://cdn.ryodev.my.id/tts/hello.mp3' },
   //   },
   // },
