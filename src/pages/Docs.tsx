@@ -221,16 +221,6 @@ export default function Docs() {
               </div>
 
               <div className="mb-12">
-                <h2 className="text-lg font-medium mb-4" style={{ color: '#000' }}>Authentication</h2>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#14213d', opacity: 0.7 }}>
-                  All API endpoints require an API key passed as a query parameter.
-                </p>
-                <div className="border p-4" style={{ borderColor: '#e0e0e0', borderRadius: 8, backgroundColor: '#f7f7f7' }}>
-                  <code className="text-sm font-mono" style={{ color: '#14213d' }}>?apikey=YOUR_API_KEY</code>
-                </div>
-              </div>
-
-              <div className="mb-12">
                 <h2 className="text-lg font-medium mb-4" style={{ color: '#000' }}>Response Format</h2>
                 <div className="border p-4 overflow-x-auto" style={{ borderColor: '#e0e0e0', borderRadius: 8, backgroundColor: '#f7f7f7' }}>
                   <pre className="text-sm font-mono" style={{ color: '#14213d' }}>{`{\n  "status": 200,\n  "creator": "RyodevAPI",\n  "result": "..."\n}`}</pre>
@@ -244,7 +234,7 @@ export default function Docs() {
                     <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#a0b6cd' }}>JavaScript</span>
                   </div>
                   <div className="p-4 overflow-x-auto">
-                    <pre className="text-sm font-mono" style={{ color: '#14213d' }}>{`fetch('https://ryodev.my.id/api/gemini?text=Hello&apikey=free')\n  .then(res => res.json())\n  .then(data => console.log(data.result));`}</pre>
+                    <pre className="text-sm font-mono" style={{ color: '#14213d' }}>{`fetch('https://ryodev.my.id/api/gemini?text=Hello')\n  .then(res => res.json())\n  .then(data => console.log(data.result));`}</pre>
                   </div>
                 </div>
               </div>
