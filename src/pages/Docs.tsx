@@ -78,22 +78,8 @@ export default function Docs() {
 
     try {
       const res = await fetch(url);
-      const contentType = res.headers.get('content-type') || '';
-
-      if (contentType.includes('svg')) {
-        const svgText = await res.text();
-        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
-        setExecState({ status: 'success', data: mockData, imageUrl: svgText, imageType: 'svg' });
-        return;
-      }
-
-      if (contentType.includes('image')) {
-        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
-        setExecState({ status: 'success', data: mockData, imageUrl: url, imageType: 'blob' });
-        return;
-      }
-
       const data = await res.json();
+
       if (activeEp.responseType === 'image' && data.result && typeof data.result === 'string') {
         setExecState({ status: 'success', data, imageUrl: data.result, imageType: 'blob' });
         return;
@@ -412,18 +398,11 @@ export default function Docs() {
                                 <ImageIcon size={12} style={{ color: '#a0b6cd' }} />
                                 <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#a0b6cd' }}>Preview</span>
                               </div>
-                              {execState.imageType === 'svg' ? (
-                                <div
-                                  dangerouslySetInnerHTML={{ __html: execState.imageUrl! }}
-                                  style={{ width: '100%', borderRadius: 8, border: '1px solid #e0e0e0', backgroundColor: '#fff', overflow: 'hidden' }}
-                                />
-                              ) : (
-                                <img
-                                  src={execState.imageUrl}
-                                  alt="Result preview"
-                                  style={{ width: '100%', borderRadius: 8, border: '1px solid #e0e0e0', display: 'block', backgroundColor: '#fff' }}
-                                />
-                              )}
+                              <img
+                                src={execState.imageUrl}
+                                alt="Result preview"
+                                style={{ width: '100%', borderRadius: 8, border: '1px solid #e0e0e0', display: 'block', backgroundColor: '#fff' }}
+                              />
                             </div>
                           )}
 
