@@ -77,30 +77,15 @@ export default function Docs() {
     const url = `${BASE_URL}${activeEp.path}?${qs.toString()}`;
 
     try {
+      // Kalau responseType image, langsung pake URL sebagai src <img> — no fetch needed
+      if (activeEp.responseType === 'image') {
+        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
+        setExecState({ status: 'success', data: mockData, imageUrl: url, imageType: 'blob' });
+        return;
+      }
+
       const res = await fetch(url);
-      const contentType = res.headers.get('content-type') || '';
-
-      if (contentType.includes('image/png') || contentType.includes('image/jpeg') || contentType.includes('image/webp')) {
-        const blob = await res.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
-        setExecState({ status: 'success', data: mockData, imageUrl: blobUrl, imageType: 'blob' });
-        return;
-      }
-
-      if (contentType.includes('svg')) {
-        const svgText = await res.text();
-        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
-        setExecState({ status: 'success', data: mockData, imageUrl: svgText, imageType: 'svg' });
-        return;
-      }
-
       const data = await res.json();
-      // kalau result-nya URL gambar (QR dll)
-      if (activeEp.responseType === 'image' && data.result && typeof data.result === 'string') {
-        setExecState({ status: 'success', data, imageUrl: data.result, imageType: 'blob' });
-        return;
-      }
       setExecState({ status: 'success', data });
     } catch (err) {
       setExecState({
