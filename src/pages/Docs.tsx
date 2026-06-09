@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { endpoints } from '../data/apis';
 
-const BASE_URL = 'https://ryodev.my.id';
+const BASE_URL = 'https://api.ryodev.my.id';
 const categories = [...new Set(endpoints.map((e) => e.category))];
 
 type ExecState =
