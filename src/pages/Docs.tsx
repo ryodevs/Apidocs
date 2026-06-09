@@ -77,14 +77,16 @@ export default function Docs() {
     const url = `${BASE_URL}${activeEp.path}?${qs.toString()}`;
 
     try {
-      if (activeEp.responseType === 'image') {
-        // Langsung jadiin URL gambar, gausah fetch JSON
+      const res = await fetch(url);
+      const contentType = res.headers.get('content-type') || '';
+
+      if (contentType.includes('svg') || contentType.includes('image')) {
+        const svgText = await res.text();
         const mockData = { status: 200, creator: 'RyodevAPI', result: url };
-        setExecState({ status: 'success', data: mockData, imageUrl: url });
+        setExecState({ status: 'success', data: mockData, imageUrl: svgText });
         return;
       }
 
-      const res = await fetch(url);
       const data = await res.json();
       setExecState({ status: 'success', data });
     } catch (err) {
@@ -400,16 +402,15 @@ export default function Docs() {
                                 <ImageIcon size={12} style={{ color: '#a0b6cd' }} />
                                 <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#a0b6cd' }}>Preview</span>
                               </div>
-                              <iframe
-                                src={execState.imageUrl}
-                                title="Result preview"
+                              <div
+                                dangerouslySetInnerHTML={{ __html: execState.imageUrl }}
                                 style={{
-                                  width: '100%',
+                                  width: "100%",
                                   maxWidth: 320,
-                                  height: 320,
-                                  border: '1px solid #e0e0e0',
+                                  border: "1px solid #e0e0e0",
                                   borderRadius: 8,
-                                  backgroundColor: '#fff',
+                                  backgroundColor: "#fff",
+                                  overflow: "hidden",
                                 }}
                               />
                             </div>
