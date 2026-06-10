@@ -94,28 +94,7 @@ export const endpoints: Endpoint[] = [
       response: {
         status: 200,
         creator: 'RyodevAPI',
-        result: 'https://cdn.ryodev.my.id/qr/abc123.png',
-      },
-    },
-  },
-  {
-    id: 'remini',
-    method: 'GET',
-    path: '/api/remini',
-    title: 'Image Enhancer',
-    category: 'Image Tools',
-    responseType: 'image',
-    description:
-      'Enhance image resolution and quality using AI. Pass an image URL and receive an enhanced version with improved clarity and detail.',
-    params: [
-      { name: 'url', type: 'string', required: true, description: 'URL of the image to enhance', placeholder: 'https://example.com/photo.jpg' },
-    ],
-    example: {
-      request: `GET https://api.ryodev.my.id/api/remini?url=https://example.com/photo.jpg`,
-      response: {
-        status: 200,
-        creator: 'RyodevAPI',
-        result: 'https://cdn.ryodev.my.id/enhanced/photo_hd.png',
+        result: 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ryodev.my.id',
       },
     },
   },
@@ -127,7 +106,7 @@ export const endpoints: Endpoint[] = [
     category: 'Image Tools',
     responseType: 'image',
     description:
-      'Generate a brat-style image with custom text. Returns a brat aesthetic image with your text overlaid — popular for memes and social media content.',
+      'Generate a brat-style image with custom text. Returns a brat aesthetic image with your text — popular for memes and social media content.',
     params: [
       { name: 'text', type: 'string', required: true, description: 'Text to display on the brat image', placeholder: 'brat summer' },
     ],
@@ -136,7 +115,28 @@ export const endpoints: Endpoint[] = [
       response: {
         status: 200,
         creator: 'RyodevAPI',
-        result: 'https://cdn.ryodev.my.id/brat/brat_summer.png',
+        result: 'data:image/svg+xml;base64,...',
+      },
+    },
+  },
+  {
+    id: 'remini',
+    method: 'GET',
+    path: '/api/remini',
+    title: 'Image Enhancer (Remini)',
+    category: 'Image Tools',
+    responseType: 'image',
+    description:
+      'Enhance image quality using Remini AI. Automatically improves face detail, background sharpness, and overall image clarity. Pass an image URL and receive an enhanced version.',
+    params: [
+      { name: 'url', type: 'string', required: true, description: 'URL of the image to enhance', placeholder: 'https://example.com/photo.jpg' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/remini?url=https://example.com/photo.jpg`,
+      response: {
+        status: 200,
+        creator: 'RyodevAPI',
+        result: 'https://storage.remini.ai/enhanced/photo_hd.jpg',
       },
     },
   },
@@ -163,7 +163,7 @@ export const endpoints: Endpoint[] = [
           name: 'Monkey D. Luffy',
           anime: 'One Piece',
           description: 'Captain of the Straw Hat Pirates, aims to become the Pirate King.',
-          image: 'https://cdn.ryodev.my.id/anime/luffy.png',
+          image: 'https://cdn.myanimelist.net/images/characters/9/310307.jpg',
         },
       },
     },
@@ -176,14 +176,13 @@ export const endpoints: Endpoint[] = [
   //   path: '/api/tts',
   //   title: 'Text to Speech',
   //   category: 'Audio Tools',
-  //   responseType: 'text',   // ganti 'image' kalau result-nya URL gambar
+  //   responseType: 'text',
   //   description: 'Convert text to speech audio file.',
   //   params: [
   //     { name: 'text', type: 'string', required: true, description: 'Text to convert', placeholder: 'Hello world' },
-  //     { name: 'apikey', type: 'string', required: true, description: 'Your API key', placeholder: 'YOUR_API_KEY' },
   //   ],
   //   example: {
-  //     request: `GET https://ryodev.my.id/api/tts?text=hello&apikey=YOUR_API_KEY`,
+  //     request: `GET https://api.ryodev.my.id/api/tts?text=hello`,
   //     response: { status: 200, creator: 'RyodevAPI', result: 'https://cdn.ryodev.my.id/tts/hello.mp3' },
   //   },
   // },
