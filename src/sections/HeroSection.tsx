@@ -84,8 +84,8 @@ export default function HeroSection() {
                   const el = document.getElementById('playground');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="inline-block text-xs font-medium uppercase tracking-widest px-7 py-3.5 rounded-full border transition-all duration-200 hover:bg-black hover:text-white"
-                style={{ borderColor: '#000', color: '#000' }}
+                className="inline-block text-xs font-medium uppercase tracking-widest px-7 py-3.5 rounded-full border transition-all duration-200 hover:bg-black hover:text-white active:bg-transparent active:text-black"
+                style={{ borderColor: '#000', color: '#000', WebkitTapHighlightColor: 'transparent' }}
               >
                 Try Playground
               </button>
