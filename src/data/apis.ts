@@ -141,6 +141,56 @@ export const endpoints: Endpoint[] = [
     },
   },
 
+  // ── Tools ────────────────────────────────────────────────
+  {
+    id: 'summarize',
+    method: 'GET',
+    path: '/api/summarize',
+    title: 'Article Summarizer',
+    category: 'Tools',
+    responseType: 'text',
+    description:
+      'Summarize any article or webpage into concise key points using Gemini AI. Pass a URL and receive a short summary in Indonesian.',
+    params: [
+      { name: 'url', type: 'string', required: true, description: 'URL of the article or webpage to summarize', placeholder: 'https://news.com/artikel' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/summarize?url=https://news.com/artikel`,
+      response: {
+        status: 200,
+        creator: 'RyodevAPI',
+        url: 'https://news.com/artikel',
+        result: '- Artikel ini membahas tentang perkembangan AI terbaru...',
+      },
+    },
+  },
+  {
+    id: 'translator',
+    method: 'GET',
+    path: '/api/translator',
+    title: 'Translator',
+    category: 'Tools',
+    responseType: 'text',
+    description:
+      'Translate text between languages using Gemini AI. Supports auto-detection of source language. Available languages: id, en, ja, ko, zh, ar, fr, de, es, pt, ru, it, th, vi, ms.',
+    params: [
+      { name: 'text', type: 'string', required: true, description: 'Text to translate', placeholder: 'Hello, how are you?' },
+      { name: 'to', type: 'string', required: true, description: 'Target language code (e.g. id, en, ja, ko)', placeholder: 'id' },
+      { name: 'from', type: 'string', required: false, description: 'Source language code. Default: auto-detect', placeholder: 'en' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/translator?text=Hello%20world&to=id`,
+      response: {
+        status: 200,
+        creator: 'RyodevAPI',
+        from: 'auto',
+        to: 'id',
+        original: 'Hello world',
+        result: 'Halo dunia',
+      },
+    },
+  },
+
   // ── Anime Database ────────────────────────────────────────
   {
     id: 'anime',
