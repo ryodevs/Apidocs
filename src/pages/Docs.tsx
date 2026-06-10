@@ -212,8 +212,8 @@ export default function Docs() {
               <div className="mb-12">
                 <h2 className="text-lg font-medium mb-4" style={{ color: '#000' }}>Base URL</h2>
                 <div className="border p-4 flex items-center justify-between group" style={{ borderColor: '#e0e0e0', borderRadius: 8, backgroundColor: '#f7f7f7' }}>
-                  <code className="text-sm font-mono" style={{ color: '#14213d' }}>https://ryodev.my.id</code>
-                  <button onClick={() => handleCopy('https://ryodev.my.id', 'baseurl')} className="opacity-0 group-hover:opacity-100 transition-opacity">
+                  <code className="text-sm font-mono" style={{ color: '#14213d' }}>https://api.ryodev.my.id</code>
+                  <button onClick={() => handleCopy('https://api.ryodev.my.id', 'baseurl')} className="opacity-0 group-hover:opacity-100 transition-opacity">
                     {copiedId === 'baseurl' ? <Check size={14} style={{ color: '#4ade80' }} /> : <Copy size={14} style={{ color: '#a0b6cd' }} />}
                   </button>
                 </div>
@@ -233,7 +233,7 @@ export default function Docs() {
                     <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#a0b6cd' }}>JavaScript</span>
                   </div>
                   <div className="p-4 overflow-x-auto">
-                    <pre className="text-sm font-mono" style={{ color: '#14213d' }}>{`fetch('https://ryodev.my.id/api/gemini?text=Hello')\n  .then(res => res.json())\n  .then(data => console.log(data.result));`}</pre>
+                    <pre className="text-sm font-mono" style={{ color: '#14213d' }}>{`fetch('https://api.ryodev.my.id/api/gemini?text=Hello')\n  .then(res => res.json())\n  .then(data => console.log(data.result));`}</pre>
                   </div>
                 </div>
               </div>
