@@ -94,7 +94,7 @@ export const endpoints: Endpoint[] = [
       response: {
         status: 200,
         creator: 'RyodevAPI',
-        result: 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ryodev.my.id',
+        result: 'data:image/png;base64,...',
       },
     },
   },
