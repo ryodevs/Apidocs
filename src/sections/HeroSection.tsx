@@ -84,8 +84,17 @@ export default function HeroSection() {
                   const el = document.getElementById('playground');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="inline-block text-xs font-medium uppercase tracking-widest px-7 py-3.5 rounded-full border transition-all duration-200 hover:bg-black hover:text-white active:bg-transparent active:text-black"
-                style={{ borderColor: '#000', color: '#000', WebkitTapHighlightColor: 'transparent' }}
+                className="inline-block text-xs font-medium uppercase tracking-widest px-7 py-3.5 rounded-full transition-all duration-200"
+                style={{
+                  borderWidth: 1,
+                  borderStyle: 'solid',
+                  borderColor: '#000',
+                  color: '#000',
+                  backgroundColor: 'transparent',
+                  WebkitTapHighlightColor: 'transparent',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#000'; (e.currentTarget as HTMLButtonElement).style.color = '#fff'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#000'; }}
               >
                 Try Playground
               </button>
