@@ -25,7 +25,7 @@ type ExecState =
   | { status: 'error'; message: string };
 
 export default function Docs() {
-  const [activeEndpoint, setActiveEndpoint] = useState<string>(endpoints[0].id);
+  const [activeEndpoint, setActiveEndpoint] = useState<string>('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [paramValues, setParamValues] = useState<Record<string, string>>({});
