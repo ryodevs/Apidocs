@@ -30,6 +30,7 @@ export default function Docs() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [paramValues, setParamValues] = useState<Record<string, string>>({});
   const [execState, setExecState] = useState<ExecState>({ status: 'idle' });
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const activeEp = endpoints.find((e) => e.id === activeEndpoint)!;
@@ -40,6 +41,7 @@ export default function Docs() {
     if (contentRef.current) contentRef.current.scrollTop = 0;
     setSidebarOpen(false);
     setExecState({ status: 'idle' });
+    setUploadFile(null);
     // pre-fill params with placeholders
     if (activeEp) {
       const defaults: Record<string, string> = {};
@@ -77,6 +79,19 @@ export default function Docs() {
     const url = `${BASE_URL}${activeEp.path}?${qs.toString()}`;
 
     try {
+      // Upload endpoint: kirim file langsung ke catbox.moe dari frontend
+      if (activeEp.id === 'upload' && uploadFile) {
+        const form = new FormData();
+        form.append('reqtype', 'fileupload');
+        form.append('fileToUpload', uploadFile);
+        const uploadRes = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: form });
+        const resultUrl = await uploadRes.text();
+        if (!resultUrl.startsWith('https://')) throw new Error('Upload gagal: ' + resultUrl);
+        const mockData = { status: 200, creator: 'RyodevAPI', original: uploadFile.name, result: resultUrl.trim() };
+        setExecState({ status: 'success', data: mockData });
+        return;
+      }
+
       const res = await fetch(url);
       const data = await res.json();
 
@@ -356,6 +371,34 @@ export default function Docs() {
                         />
                       </div>
                     ))}
+                    {/* File upload khusus endpoint upload */}
+                    {activeEp.id === 'upload' && (
+                      <div>
+                        <label className="block text-[10px] font-medium uppercase tracking-wider mb-1.5" style={{ color: '#a0b6cd' }}>
+                          ATAU UPLOAD DARI HP
+                        </label>
+                        <label
+                          className="flex items-center justify-center gap-2 w-full py-3 rounded-md border-2 border-dashed cursor-pointer transition-colors duration-200"
+                          style={{ borderColor: uploadFile ? '#14213d' : '#e0e0e0', backgroundColor: '#fff' }}
+                        >
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                setUploadFile(file);
+                                setParamValues(prev => ({ ...prev, url: '' }));
+                              }
+                            }}
+                          />
+                          <span className="text-xs font-medium" style={{ color: uploadFile ? '#14213d' : '#a0b6cd' }}>
+                            {uploadFile ? `✓ ${uploadFile.name}` : 'Tap untuk pilih gambar'}
+                          </span>
+                        </label>
+                      </div>
+                    )}
                   </div>
 
                   {/* Built URL preview */}
