@@ -99,6 +99,28 @@ export const endpoints: Endpoint[] = [
     },
   },
   {
+    id: 'upload',
+    method: 'GET',
+    path: '/api/upload',
+    title: 'Image to URL',
+    category: 'Image Tools',
+    responseType: 'text',
+    description:
+      'Upload an image from a URL to a permanent hosting service and receive a new shareable link. Useful for converting temporary image URLs into permanent ones.',
+    params: [
+      { name: 'url', type: 'string', required: true, description: 'URL of the image to upload', placeholder: 'https://example.com/photo.jpg' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/upload?url=https://example.com/photo.jpg`,
+      response: {
+        status: 200,
+        creator: 'RyodevAPI',
+        original: 'https://example.com/photo.jpg',
+        result: 'https://files.catbox.moe/abc123.jpg',
+      },
+    },
+  },
+  {
     id: 'brat',
     method: 'GET',
     path: '/api/brat',
