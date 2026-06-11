@@ -100,21 +100,20 @@ export const endpoints: Endpoint[] = [
   },
   {
     id: 'upload',
-    method: 'GET',
+    method: 'POST',
     path: '/api/upload',
     title: 'Image to URL',
     category: 'Image Tools',
     responseType: 'text',
     description:
-      'Upload an image from a URL to a permanent hosting service and receive a new shareable link. Useful for converting temporary image URLs into permanent ones.',
+      'Upload an image from your device and receive a permanent shareable URL. Useful as a step before using other image APIs like Remini.',
     params: [],
     example: {
-      request: `GET https://api.ryodev.my.id/api/upload?url=https://example.com/photo.jpg`,
+      request: `POST https://api.ryodev.my.id/api/upload\nContent-Type: multipart/form-data\n\nfile=<image file>`,
       response: {
         status: 200,
         creator: 'RyodevAPI',
-        original: 'https://example.com/photo.jpg',
-        result: 'https://files.catbox.moe/abc123.jpg',
+        result: 'https://tmpfiles.org/dl/abc123/image.jpg',
       },
     },
   },
