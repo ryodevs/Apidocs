@@ -105,7 +105,12 @@ export default function Docs() {
       const data = await res.json();
 
       if (activeEp.responseType === 'image' && data.result && typeof data.result === 'string') {
-        setExecState({ status: 'success', data, imageUrl: data.result, imageType: 'blob' });
+        const raw = data.result;
+        // Kalau bukan base64, proxy lewat backend biar gak kena CORS/hotlink block
+        const imageUrl = raw.startsWith('data:')
+          ? raw
+          : `${BASE_URL}/api/proxy?url=${encodeURIComponent(raw)}`;
+        setExecState({ status: 'success', data, imageUrl, imageType: 'blob' });
         return;
       }
       setExecState({ status: 'success', data });
