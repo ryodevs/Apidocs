@@ -46,7 +46,7 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ backgroundColor: '#fff' }}
     >
-      <div className="hidden md:block"></div>
+      <div className="hidden md:block"><MeshGradient /></div>
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-10 w-full py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
