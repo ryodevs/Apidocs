@@ -194,8 +194,8 @@ export default function Docs() {
                       <span
                         className="text-[9px] font-mono font-bold px-1 py-0.5 rounded"
                         style={{
-                          backgroundColor: ep.method === 'GET' ? 'rgba(160,182,205,0.2)' : 'rgba(20,33,61,0.1)',
-                          color: ep.method === 'GET' ? '#a0b6cd' : '#14213d',
+                          backgroundColor: methodColor(ep.method).bg,
+                          color: methodColor(ep.method).text,
                         }}
                       >{ep.method}</span>
                       <span className="truncate">{ep.title}</span>
