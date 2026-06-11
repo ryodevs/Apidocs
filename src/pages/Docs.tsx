@@ -79,16 +79,13 @@ export default function Docs() {
     const url = `${BASE_URL}${activeEp.path}?${qs.toString()}`;
 
     try {
-      // Upload endpoint: kirim file langsung ke catbox.moe dari frontend
+      // Upload endpoint: kirim file ke backend
       if (activeEp.id === 'upload' && uploadFile) {
         const form = new FormData();
-        form.append('reqtype', 'fileupload');
-        form.append('fileToUpload', uploadFile);
-        const uploadRes = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: form });
-        const resultUrl = await uploadRes.text();
-        if (!resultUrl.startsWith('https://')) throw new Error('Upload gagal: ' + resultUrl);
-        const mockData = { status: 200, creator: 'RyodevAPI', original: uploadFile.name, result: resultUrl.trim() };
-        setExecState({ status: 'success', data: mockData });
+        form.append('file', uploadFile);
+        const uploadRes = await fetch(`${BASE_URL}/api/upload`, { method: 'POST', body: form });
+        const data = await uploadRes.json();
+        setExecState({ status: 'success', data });
         return;
       }
 
