@@ -16,6 +16,18 @@ import {
 import { endpoints } from '../data/apis';
 
 const BASE_URL = 'https://api.ryodev.my.id';
+
+function methodColor(method: string) {
+  switch (method) {
+    case 'GET':    return { bg: 'rgba(59,130,246,0.12)', text: '#2563eb' };
+    case 'POST':   return { bg: 'rgba(34,197,94,0.12)',  text: '#16a34a' };
+    case 'PUT':    return { bg: 'rgba(249,115,22,0.12)', text: '#ea580c' };
+    case 'PATCH':  return { bg: 'rgba(234,179,8,0.12)',  text: '#ca8a04' };
+    case 'DELETE': return { bg: 'rgba(239,68,68,0.12)',  text: '#dc2626' };
+    default:       return { bg: 'rgba(160,182,205,0.2)', text: '#a0b6cd' };
+  }
+}
+
 const categories = [...new Set(endpoints.map((e) => e.category))];
 
 type ExecState =
@@ -262,7 +274,7 @@ export default function Docs() {
                     >
                       <span
                         className="text-[10px] font-mono font-bold px-2 py-1 rounded flex-shrink-0"
-                        style={{ backgroundColor: ep.method === 'GET' ? 'rgba(160,182,205,0.2)' : 'rgba(20,33,61,0.1)', color: ep.method === 'GET' ? '#a0b6cd' : '#14213d' }}
+                        style={{ backgroundColor: methodColor(ep.method).bg, color: methodColor(ep.method).text }}
                       >{ep.method}</span>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate" style={{ color: '#000' }}>{ep.title}</p>
