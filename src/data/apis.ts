@@ -107,9 +107,7 @@ export const endpoints: Endpoint[] = [
     responseType: 'text',
     description:
       'Upload an image from a URL to a permanent hosting service and receive a new shareable link. Useful for converting temporary image URLs into permanent ones.',
-    params: [
-      { name: 'url', type: 'string', required: true, description: 'URL of the image to upload', placeholder: 'https://example.com/photo.jpg' },
-    ],
+    params: [],
     example: {
       request: `GET https://api.ryodev.my.id/api/upload?url=https://example.com/photo.jpg`,
       response: {
