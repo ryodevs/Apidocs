@@ -296,7 +296,7 @@ export default function Docs() {
               <p className="text-base leading-relaxed mb-10" style={{ color: '#14213d', opacity: 0.7 }}>{activeEp.description}</p>
 
               {/* Parameters */}
-              <div className="mb-10">
+              {activeEp.params.length > 0 && <div className="mb-10">
                 <h2 className="text-lg font-medium mb-4" style={{ color: '#000' }}>Parameters</h2>
                 <div className="border overflow-hidden" style={{ borderColor: '#e0e0e0', borderRadius: 8 }}>
                   <div className="md:hidden divide-y" style={{ borderColor: '#e0e0e0' }}>
@@ -338,7 +338,7 @@ export default function Docs() {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div>}
 
               {/* ── Try It ── */}
               <div className="mb-10">
@@ -372,7 +372,7 @@ export default function Docs() {
                     {activeEp.id === 'upload' && (
                       <div>
                         <label className="block text-[10px] font-medium uppercase tracking-wider mb-1.5" style={{ color: '#a0b6cd' }}>
-                          ATAU UPLOAD DARI HP
+                          UPLOAD GAMBAR
                         </label>
                         <label
                           className="flex items-center justify-center gap-2 w-full py-3 rounded-md border-2 border-dashed cursor-pointer transition-colors duration-200"
@@ -399,10 +399,12 @@ export default function Docs() {
                   </div>
 
                   {/* Built URL preview */}
+                  {activeEp.id !== 'upload' && (
                   <div className="px-5 py-3 border-t border-b" style={{ borderColor: '#e0e0e0', backgroundColor: '#fff' }}>
                     <p className="text-[10px] font-medium uppercase tracking-wider mb-1" style={{ color: '#a0b6cd' }}>Request URL</p>
                     <code className="text-xs font-mono break-all" style={{ color: '#14213d', opacity: 0.7 }}>{builtUrl}</code>
                   </div>
+                  )}
 
                   {/* Execute button */}
                   <div className="px-5 py-4" style={{ backgroundColor: '#fff' }}>
