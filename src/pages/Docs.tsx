@@ -114,11 +114,21 @@ export default function Docs() {
       }
 
       const res = await fetch(url);
+      const contentType = res.headers.get('content-type') || '';
+
+      // Kalau response langsung image (misal brat pakai @vercel/og)
+      if (contentType.includes('image/')) {
+        const blob = await res.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        const mockData = { status: 200, creator: 'RyodevAPI', result: url };
+        setExecState({ status: 'success', data: mockData, imageUrl: objectUrl, imageType: 'blob' });
+        return;
+      }
+
       const data = await res.json();
 
       if (activeEp.responseType === 'image' && data.result && typeof data.result === 'string') {
         const raw = data.result;
-        // Kalau bukan base64, proxy lewat backend biar gak kena CORS/hotlink block
         const imageUrl = raw.startsWith('data:')
           ? raw
           : `${BASE_URL}/api/proxy?url=${encodeURIComponent(raw)}`;
