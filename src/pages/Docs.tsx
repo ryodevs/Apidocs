@@ -91,12 +91,20 @@ export default function Docs() {
     const url = `${BASE_URL}${activeEp.path}?${qs.toString()}`;
 
     try {
-      // Upload endpoint: kirim file ke backend
-      if (activeEp.id === 'upload' && uploadFile) {
+      // Endpoint yang butuh file upload (upload & remini)
+      if ((activeEp.id === 'upload' || activeEp.id === 'remini') && uploadFile) {
         const form = new FormData();
         form.append('file', uploadFile);
-        const uploadRes = await fetch(`${BASE_URL}/api/upload`, { method: 'POST', body: form });
+        const uploadRes = await fetch(`${BASE_URL}${activeEp.path}`, { method: 'POST', body: form });
         const data = await uploadRes.json();
+        if (activeEp.responseType === 'image' && data.result && typeof data.result === 'string') {
+          const raw = data.result;
+          const imageUrl = raw.startsWith('data:')
+            ? raw
+            : `${BASE_URL}/api/proxy?url=${encodeURIComponent(raw)}`;
+          setExecState({ status: 'success', data, imageUrl, imageType: 'blob' });
+          return;
+        }
         setExecState({ status: 'success', data });
         return;
       }
@@ -385,8 +393,8 @@ export default function Docs() {
                         />
                       </div>
                     ))}
-                    {/* File upload khusus endpoint upload */}
-                    {activeEp.id === 'upload' && (
+                    {/* File upload khusus endpoint upload & remini */}
+                    {(activeEp.id === 'upload' || activeEp.id === 'remini') && (
                       <div>
                         <label className="block text-[10px] font-medium uppercase tracking-wider mb-1.5" style={{ color: '#a0b6cd' }}>
                           UPLOAD GAMBAR
