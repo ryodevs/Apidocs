@@ -92,6 +92,10 @@ export default function Docs() {
 
     try {
       // Endpoint yang butuh file upload (upload & remini)
+      if (activeEp.id === 'remini' && !uploadFile) {
+        setExecState({ status: 'error', message: 'Pilih gambar dulu sebelum execute.' });
+        return;
+      }
       if ((activeEp.id === 'upload' || activeEp.id === 'remini') && uploadFile) {
         const form = new FormData();
         form.append('file', uploadFile);
@@ -465,11 +469,20 @@ export default function Docs() {
                                 <ImageIcon size={12} style={{ color: '#a0b6cd' }} />
                                 <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: '#a0b6cd' }}>Preview</span>
                               </div>
-                              <img
-                                src={execState.imageUrl}
-                                alt="Result preview"
-                                style={{ width: '100%', borderRadius: 8, border: '1px solid #e0e0e0', display: 'block', backgroundColor: '#fff' }}
-                              />
+                              {execState.imageUrl?.startsWith('data:image/svg') ? (
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: atob(execState.imageUrl.replace('data:image/svg+xml;base64,', ''))
+                                  }}
+                                  style={{ width: '100%', borderRadius: 8, border: '1px solid #e0e0e0', backgroundColor: '#fff', overflow: 'hidden' }}
+                                />
+                              ) : (
+                                <img
+                                  src={execState.imageUrl}
+                                  alt="Result preview"
+                                  style={{ width: '100%', borderRadius: 8, border: '1px solid #e0e0e0', display: 'block', backgroundColor: '#fff' }}
+                                />
+                              )}
                             </div>
                           )}
 
