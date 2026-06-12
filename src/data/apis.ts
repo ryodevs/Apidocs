@@ -140,16 +140,14 @@ export const endpoints: Endpoint[] = [
   },
   {
     id: 'remini',
-    method: 'GET',
+    method: 'POST',
     path: '/api/remini',
     title: 'Image Enhancer (Remini)',
     category: 'Image Tools',
     responseType: 'image',
     description:
-      'Enhance image quality using Remini AI. Automatically improves face detail, background sharpness, and overall image clarity. Pass an image URL and receive an enhanced version.',
-    params: [
-      { name: 'url', type: 'string', required: true, description: 'URL of the image to enhance', placeholder: 'https://example.com/photo.jpg' },
-    ],
+      'Enhance image quality using Remini AI. Automatically improves face detail, background sharpness, and overall image clarity. Upload an image directly from your device.',
+    params: [],
     example: {
       request: `GET https://api.ryodev.my.id/api/remini?url=https://example.com/photo.jpg`,
       response: {
