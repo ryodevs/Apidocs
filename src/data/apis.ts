@@ -236,21 +236,196 @@ export const endpoints: Endpoint[] = [
     },
   },
 
-  // ── Cara nambahin endpoint baru ───────────────────────────
-  // {
-  //   id: 'tts',
-  //   method: 'GET',
-  //   path: '/api/tts',
-  //   title: 'Text to Speech',
-  //   category: 'Audio Tools',
-  //   responseType: 'text',
-  //   description: 'Convert text to speech audio file.',
-  //   params: [
-  //     { name: 'text', type: 'string', required: true, description: 'Text to convert', placeholder: 'Hello world' },
-  //   ],
-  //   example: {
-  //     request: `GET https://api.ryodev.my.id/api/tts?text=hello`,
-  //     response: { status: 200, creator: 'RyodevAPI', result: 'https://cdn.ryodev.my.id/tts/hello.mp3' },
-  //   },
-  // },
+  // ── Downloader ───────────────────────────────────────────
+  {
+    id: 'tiktok',
+    method: 'GET',
+    path: '/api/tiktok',
+    title: 'TikTok Downloader',
+    category: 'Downloader',
+    responseType: 'text',
+    description: 'Download TikTok video without watermark. Returns HD play URL, cover and author info.',
+    params: [{ name: 'url', type: 'string', required: true, description: 'TikTok video URL', placeholder: 'https://www.tiktok.com/@user/video/123' }],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/tiktok?url=https://www.tiktok.com/@user/video/123`,
+      response: { status: 200, creator: 'RyodevAPI', result: { title: 'Video title', play: 'https://...mp4', hdplay: 'https://...mp4' } },
+    },
+  },
+  {
+    id: 'instagram',
+    method: 'GET',
+    path: '/api/instagram',
+    title: 'Instagram Downloader',
+    category: 'Downloader',
+    responseType: 'text',
+    description: 'Download Instagram reels, posts and stories. Returns media URLs.',
+    params: [{ name: 'url', type: 'string', required: true, description: 'Instagram URL', placeholder: 'https://www.instagram.com/reel/ABC' }],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/instagram?url=https://www.instagram.com/reel/ABC`,
+      response: { status: 200, creator: 'RyodevAPI', result: [{ url: 'https://...mp4', type: 'video' }] },
+    },
+  },
+  {
+    id: 'youtube',
+    method: 'GET',
+    path: '/api/youtube',
+    title: 'YouTube Downloader',
+    category: 'Downloader',
+    responseType: 'text',
+    description: 'Get YouTube video metadata and download links. Supports shorts and regular videos.',
+    params: [{ name: 'url', type: 'string', required: true, description: 'YouTube URL or video ID', placeholder: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/youtube?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ`,
+      response: { status: 200, creator: 'RyodevAPI', result: { title: 'Never Gonna Give You Up', thumbnail: 'https://...' } },
+    },
+  },
+  {
+    id: 'facebook',
+    method: 'GET',
+    path: '/api/facebook',
+    title: 'Facebook Downloader',
+    category: 'Downloader',
+    responseType: 'text',
+    description: 'Download Facebook videos. Returns HD and SD URLs.',
+    params: [{ name: 'url', type: 'string', required: true, description: 'Facebook video URL', placeholder: 'https://www.facebook.com/watch/?v=123' }],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/facebook?url=https://www.facebook.com/watch/?v=123`,
+      response: { status: 200, creator: 'RyodevAPI', result: { hd: 'https://...mp4', sd: 'https://...mp4' } },
+    },
+  },
+
+  // ── Islamic ────────────────────────────────────────────────
+  {
+    id: 'quran',
+    method: 'GET',
+    path: '/api/quran',
+    title: 'Al-Quran',
+    category: 'Islamic',
+    responseType: 'text',
+    description: 'Get Quran chapter info or specific ayah with translation and audio. Use surah (1-114) and optional ayah.',
+    params: [
+      { name: 'surah', type: 'string', required: true, description: 'Surah number 1-114', placeholder: '1' },
+      { name: 'ayah', type: 'string', required: false, description: 'Ayah number (empty = surah info)', placeholder: '5' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/quran?surah=1&ayah=5`,
+      response: { status: 200, creator: 'RyodevAPI', result: { text: 'إِيَّاكَ نَعْبُدُ', translation: 'Hanya Engkaulah...' } },
+    },
+  },
+  {
+    id: 'hadith',
+    method: 'GET',
+    path: '/api/hadith',
+    title: 'Hadith',
+    category: 'Islamic',
+    responseType: 'text',
+    description: 'Get hadith by book and number. Books: bukhari, muslim, abu-daud, tirmidzi, nasai, ibn-majah, ahmad.',
+    params: [
+      { name: 'book', type: 'string', required: false, description: 'Hadith book', placeholder: 'bukhari' },
+      { name: 'number', type: 'string', required: false, description: 'Hadith number', placeholder: '1' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/hadith?book=bukhari&number=1`,
+      response: { status: 200, creator: 'RyodevAPI', result: { arab: '...', indonesian: '...' } },
+    },
+  },
+
+  // ── Tools Extended ───────────────────────────────────────
+  {
+    id: 'weather',
+    method: 'GET',
+    path: '/api/weather',
+    title: 'Weather Forecast',
+    category: 'Tools',
+    responseType: 'text',
+    description: 'Get current weather and 7-day forecast for any city using Open-Meteo. No API key required.',
+    params: [{ name: 'city', type: 'string', required: true, description: 'City name', placeholder: 'Jakarta' }],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/weather?city=Jakarta`,
+      response: { status: 200, creator: 'RyodevAPI', result: { city: 'Jakarta', current: { temperature_2m: 30 } } },
+    },
+  },
+  {
+    id: 'news',
+    method: 'GET',
+    path: '/api/news',
+    title: 'News Search',
+    category: 'Tools',
+    responseType: 'text',
+    description: 'Search latest news by keyword. Returns Indonesian news or HackerNews fallback.',
+    params: [{ name: 'q', type: 'string', required: false, description: 'Search query', placeholder: 'teknologi' }],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/news?q=teknologi`,
+      response: { status: 200, creator: 'RyodevAPI', result: [{ title: 'Berita terbaru', url: 'https://...' }] },
+    },
+  },
+  {
+    id: 'shortlink',
+    method: 'GET',
+    path: '/api/shortlink',
+    title: 'URL Shortener',
+    category: 'Tools',
+    responseType: 'text',
+    description: 'Shorten any long URL using is.gd and tinyurl fallback. Returns short URL.',
+    params: [{ name: 'url', type: 'string', required: true, description: 'Long URL to shorten', placeholder: 'https://example.com/very/long/url' }],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/shortlink?url=https://example.com`,
+      response: { status: 200, creator: 'RyodevAPI', result: { original: 'https://example.com', short: 'https://is.gd/abc123' } },
+    },
+  },
+
+  // ── Image / Audio / AI ───────────────────────────────────
+  {
+    id: 'meme',
+    method: 'GET',
+    path: '/api/meme',
+    title: 'Meme Generator',
+    category: 'Image Tools',
+    responseType: 'image',
+    description: 'Generate meme image with top and bottom text using memegen.link templates.',
+    params: [
+      { name: 'top', type: 'string', required: false, description: 'Top text', placeholder: 'when you' },
+      { name: 'bottom', type: 'string', required: false, description: 'Bottom text', placeholder: 'code works' },
+      { name: 'template', type: 'string', required: false, description: 'Template id (drake, distracted, etc)', placeholder: 'drake' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/meme?top=when%20you&bottom=code%20works`,
+      response: { status: 200, creator: 'RyodevAPI', result: 'data:image/png;base64,...' },
+    },
+  },
+  {
+    id: 'tts',
+    method: 'GET',
+    path: '/api/tts',
+    title: 'Text to Speech',
+    category: 'Audio Tools',
+    responseType: 'text',
+    description: 'Convert text to speech audio (Google TTS). Supports lang codes: id, en, ja, ko, etc. Returns base64 audio.',
+    params: [
+      { name: 'text', type: 'string', required: true, description: 'Text to convert', placeholder: 'Halo dunia' },
+      { name: 'lang', type: 'string', required: false, description: 'Language code', placeholder: 'id' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/tts?text=Halo%20dunia&lang=id`,
+      response: { status: 200, creator: 'RyodevAPI', result: 'data:audio/mpeg;base64,...' },
+    },
+  },
+  {
+    id: 'ai-image',
+    method: 'GET',
+    path: '/api/ai-image',
+    title: 'AI Image Generator',
+    category: 'AI Assistant',
+    responseType: 'image',
+    description: 'Generate image from text prompt using Pollinations AI. No API key required.',
+    params: [
+      { name: 'prompt', type: 'string', required: true, description: 'Image description', placeholder: 'a cute cat astronaut' },
+      { name: 'width', type: 'string', required: false, description: 'Width px', placeholder: '512' },
+      { name: 'height', type: 'string', required: false, description: 'Height px', placeholder: '512' },
+    ],
+    example: {
+      request: `GET https://api.ryodev.my.id/api/ai-image?prompt=a%20cute%20cat%20astronaut`,
+      response: { status: 200, creator: 'RyodevAPI', result: 'data:image/jpeg;base64,...' },
+    },
+  },
 ];
